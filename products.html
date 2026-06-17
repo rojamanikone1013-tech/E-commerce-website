@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products Store</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+
+   <!-- Header -->
+<div class="bg-black text-white px-8 py-4 h-28 flex justify-between items-center">
+
+    <!-- Logo -->
+    <div class="flex items-center gap-2">
+        <img
+            src="./image/product-store-logo.png"
+            alt="Logo"
+            class="h-32 w-auto"
+        >
+    </div>
+
+    <!-- Search + Sort -->
+    <div class="flex items-center gap-3">
+        <input
+            type="text"
+            id="search"
+            placeholder="Search Products..."
+            class="border border-gray-300 px-4 py-2 rounded-lg text-black"
+        />
+
+        <select
+            id="sortPrice"
+            class="border border-gray-300 px-4 py-2 rounded-lg text-black cursor-pointer"
+        >
+            <option value="">Sort by Price</option>
+            <option value="asc">Low → High</option>
+            <option value="desc">High → Low</option>
+        </select>
+    </div>
+
+    <!-- Icons -->
+    <div class="flex items-center gap-6">
+        <!-- User -->
+        <a href="profile.html" class="text-2xl hover:text-blue-400 transition">
+            <i class="fa-solid fa-circle-user text-3xl"></i>
+        </a>
+
+        <!-- Wishlist -->
+        <a href="wishlist.html" class="relative text-2xl hover:text-red-500 transition">
+            <i class="fa-regular fa-heart"></i>
+            <span id="wishlistCount"
+                class="absolute -top-2 -right-3 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                0
+            </span>
+        </a>
+
+        <!-- Cart -->
+        <a href="cart.html" class="relative text-2xl hover:text-green-500 transition">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span id="cartCount"
+                class="absolute -top-2 -right-3 bg-green-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                0
+            </span>
+        </a>
+    </div>
+
+</div>
+
+<!-- Discount Banner -->
+<div class="bg-yellow-100 border-y border-yellow-400 py-3 text-center">
+    <h2 class="font-bold text-lg">🎉 Discounts Ending Soon!</h2>
+
+    <p class="text-sm">
+        Hurry up! Don't miss out on our limited-time discounts.
+    </p>
+
+    <div id="dateTime" class="font-bold text-lg mt-2 text-red-600">
+        Loading...
+    </div>
+</div>
+
+    <!-- Products -->
+    <div
+        id="items"
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 p-5"
+    ></div>
+
+    <!-- Pagination -->
+    <div
+        id="pagination"
+        class="flex justify-center items-center gap-2 my-6 flex-wrap"
+    ></div>
+
+    <!-- Product Details -->
+    <div id="productDetails" class="mb-10"></div>
+
+
+    <script src="products.js"></script>
+
+</body>
+</html>

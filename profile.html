@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+<div class="max-w-md mx-auto mt-10 bg-white rounded-xl shadow-lg p-6">
+
+    <h2 id="profileTitle"
+    class="text-2xl font-bold text-center mb-4">
+</h2>
+
+    <input
+        type="text"
+        id="name"
+        placeholder="Enter Name"
+        class="w-full border p-2 rounded mb-3"
+    >
+
+    <input
+        type="email"
+        id="email"
+        placeholder="Enter Email"
+        class="w-full border p-2 rounded mb-3"
+    >
+
+    <input
+        type="text"
+        id="location"
+        placeholder="Enter Location"
+        class="w-full border p-2 rounded mb-3"
+    >
+
+    <button
+        onclick="saveProfile()"
+        class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600">
+        Save Profile
+    </button>
+
+    <div class="text-center mt-6">
+
+    <button
+        id="authBtn"
+        onclick="toggleLogin()"
+        class="bg-blue-500 text-white px-5 py-2 rounded-lg hover:bg-blue-600">
+        Login
+    </button>
+
+</div>
+<div class="text-center mt-4">
+
+ <a id="dashboardBtn"
+   href="dashboard.html"
+   class="bg-green-500 text-white px-5 py-2 rounded-lg inline-block hover:bg-green-600">
+   Go to Dashboard
+</a>
+
+</div>
+
+</div>
+
+<script>
+
+// Page load ayinappudu data fetch chestundi
+let profile =
+JSON.parse(localStorage.getItem("profile")) || {};
+
+document.getElementById("name").value =
+profile.name || "";
+
+document.getElementById("email").value =
+profile.email || "";
+
+document.getElementById("location").value =
+profile.location || "";
+
+// Save function
+function saveProfile(){
+
+    let profileData = {
+
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        location: document.getElementById("location").value
+
+    };
+
+    localStorage.setItem(
+        "profile",
+        JSON.stringify(profileData)
+    );
+
+    alert("Profile Saved Successfully");
+}
+
+let isLoggedIn =
+localStorage.getItem("isLoggedIn") || "false";
+
+updateAuthButton();
+
+function toggleLogin(){
+
+    if(isLoggedIn === "true"){
+
+        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("userEmail");
+        localStorage.removeItem("profile");
+
+        document.getElementById("name").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("location").value = "";
+
+        isLoggedIn = "false";
+
+        updateAuthButton();
+
+        alert("Logged Out Successfully");
+
+    }else{
+
+        window.location.href = "login.html";
+    }
+}
+
+function updateAuthButton(){
+
+    document.getElementById("authBtn").textContent =
+    isLoggedIn === "true" ? "Logout" : "Login";
+
+    document.getElementById("dashboardBtn").style.display =
+    isLoggedIn === "true" ? "inline-block" : "none";
+}
+
+document.getElementById("profileTitle").textContent =
+profile.name
+? `Welcome, ${profile.name}`
+: "User Profile";
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Cart</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-5">
+
+<div class="max-w-5xl mx-auto">
+
+    <div class="flex justify-between items-center mb-5">
+        <h1 class="text-3xl font-bold">My Cart</h1>
+
+        <a href="products.html"
+           class="bg-black text-white px-4 py-2 rounded">
+            Back To Store
+        </a>
+    </div>
+
+    <div id="cartContainer"></div>
+
+    <h2 id="totalPrice"
+        class="text-2xl font-bold mt-5">
+        Total: ₹0
+    </h2>
+
+</div>
+
+<script>
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function saveCart(){
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+}
+
+function changeQty(index,type){
+
+    if(type === "inc"){
+        cart[index].qty++;
+    }
+    else{
+
+        cart[index].qty--;
+
+        if(cart[index].qty <= 0){
+            cart.splice(index,1);
+        }
+    }
+
+    saveCart();
+}
+
+function renderCart(){
+
+    let container =
+    document.getElementById("cartContainer");
+
+    container.innerHTML = "";
+
+    let total = 0;
+
+    if(cart.length === 0){
+
+        container.innerHTML = `
+            <h2 class="text-center text-xl">
+                Cart is Empty
+            </h2>
+        `;
+
+        document.getElementById("totalPrice")
+        .innerText = "Total: ₹0";
+
+        return;
+    }
+
+    cart.forEach((item,index)=>{
+
+        let subtotal = item.price * item.qty;
+
+        total += subtotal;
+
+        container.innerHTML += `
+
+        <div class="bg-white p-4 rounded-lg shadow mb-4 flex gap-4 items-center">
+
+            <img
+                src="${item.image}"
+                class="w-24 h-24 object-cover rounded"
+            >
+
+            <div class="flex-1">
+
+                <h3 class="font-bold text-lg">
+                    ${item.name}
+                </h3>
+
+                <p>Price: ₹${item.price}</p>
+
+                <div class="mt-2">
+
+                    <button
+                        onclick="changeQty(${index},'dec')"
+                        class="bg-red-500 text-white px-3 py-1 rounded">
+                        -
+                    </button>
+
+                    <span class="mx-3">
+                        ${item.qty}
+                    </span>
+
+                    <button
+                        onclick="changeQty(${index},'inc')"
+                        class="bg-green-500 text-white px-3 py-1 rounded">
+                        +
+                    </button>
+
+                </div>
+
+                <p class="mt-2 font-semibold">
+                    Subtotal: ₹${subtotal}
+                </p>
+
+            </div>
+
+        </div>
+        `;
+    });
+
+    document.getElementById("totalPrice")
+    .innerText = `Total: ₹${total}`;
+}
+
+renderCart();
+
+</script>
+
+</body>
+</html>

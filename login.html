@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+
+<div class="bg-white p-8 rounded-xl shadow-lg w-96">
+
+    <h1 class="text-3xl font-bold text-center text-blue-600 mb-6">
+        Trendora Login
+    </h1>
+
+    <form onsubmit="loginUser(event)">
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Enter Email"
+            class="w-full border p-3 rounded-lg mb-4"
+            required
+        >
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter Password"
+            class="w-full border p-3 rounded-lg mb-4"
+            required
+        >
+
+        <button
+            type="submit"
+            class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700">
+            Login
+        </button>
+
+    </form>
+
+    <div class="text-center mt-4">
+        <a href="profile.html" class="text-blue-600">
+            Go to Profile
+        </a>
+    </div>
+
+</div>
+
+<script>
+
+function loginUser(){
+
+    let profileData = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        location: document.getElementById("location").value
+    };
+
+    localStorage.setItem("profile", JSON.stringify(profileData));
+    localStorage.setItem("isLoggedIn","true");
+
+    window.location.href = "products.html";
+}
+
+</script>
+
+</body>
+</html>
